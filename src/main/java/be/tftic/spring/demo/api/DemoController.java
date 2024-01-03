@@ -12,15 +12,17 @@ import java.util.Objects;
 public class DemoController {
 
 
+    private final String applicationName;
+
+    public DemoController(String audience) {
+        this.applicationName = audience;
+    }
+
     private final List<String> names = List.of(
             "luc",
             "pol",
             "marie"
     );
-
-    public DemoController() {
-        System.out.println(" -- SPRING EST EN TRAIN D'INSTANCIER DemoController -- ");
-    }
 
     @GetMapping( "/hello" )
     public String hello(){
@@ -44,6 +46,11 @@ public class DemoController {
     @GetMapping("/name/{index}")
     public String getName(@PathVariable("index") int i){
         return names.get(i);
+    }
+
+    @GetMapping("/app")
+    public String getAppName(){
+        return applicationName;
     }
 
 }
