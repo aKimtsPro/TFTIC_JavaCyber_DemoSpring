@@ -3,9 +3,12 @@ package be.tftic.spring.demo.api;
 import be.tftic.spring.demo.api.model.CredentialsForm;
 import be.tftic.spring.demo.bll.TaskService;
 import be.tftic.spring.demo.bll.TaskServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -49,8 +52,23 @@ public class DemoController {
     }
 
     @GetMapping("/header")
-    private String getHeaderValue(@RequestHeader("monHeader") String myHeader){
+    public String getHeaderValue(@RequestHeader("monHeader") String myHeader){
         return myHeader;
+    }
+
+    @GetMapping("/param/all")
+    public void seeAllParams(@RequestParam Map<String, Object> params){
+        System.out.println(params);
+    }
+
+    @GetMapping("/header/all")
+    public void seeAllHeaders(@RequestHeader HttpHeaders header){
+        System.out.println(header);
+    }
+
+    @GetMapping("/request")
+    public void seeFullRequest(HttpServletRequest request){
+        System.out.println(request);
     }
 
 

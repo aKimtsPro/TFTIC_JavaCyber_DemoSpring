@@ -1,13 +1,12 @@
 package be.tftic.spring.demo.api;
 
 import be.tftic.spring.demo.bll.TaskService;
-import be.tftic.spring.demo.bll.TaskServiceImpl;
-import be.tftic.spring.demo.domain.Task;
+import be.tftic.spring.demo.api.model.Task;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/task")
@@ -21,20 +20,36 @@ public class TaskController {
 
     // GET - http://localhost:8080/task/_
     @GetMapping("/{id}")
-    public Task getOne(@PathVariable long id){
-        return service.getOne( id );
+    public ResponseEntity<?> getOne(@PathVariable long id){
+        try{
+            return ResponseEntity.ok( service.getOne(id) );
+        }
+        catch (RuntimeException ex){
+            // TODO faire mieux
+            return ResponseEntity.notFound()
+                    .build();
+        }
     }
 
     // GET - http://localhost:8080/task?minUrgency=_
     @GetMapping
-    public List<Task> getWithMinUrgency(@RequestParam int minUrgency) {
-        return service.getWithUrgencyGreaterThan( minUrgency );
+    public ResponseEntity<List<Task>> getWithMinUrgency(@RequestParam int minUrgency) {
+        List<Task> body = service.getWithUrgencyGreaterThan( minUrgency );
+//        return ResponseEntity.ok().body(body);
+        return ResponseEntity.ok(body);
     }
 
     // POST - http://localhost:8080/task
     @PostMapping
-    public void create(@RequestBody Task task){
+//    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> create(@RequestBody Task task){
         service.addTask(task);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .header("mon header", "valeur1", "value2")
+                .header("mon header2", "valeur1", "value2")
+                .build();
     }
 
 }

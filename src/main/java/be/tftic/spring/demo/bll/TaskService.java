@@ -1,6 +1,6 @@
 package be.tftic.spring.demo.bll;
 
-import be.tftic.spring.demo.domain.Task;
+import be.tftic.spring.demo.api.model.Task;
 
 import java.util.List;
 
