@@ -1,8 +1,6 @@
-package be.tftic.spring.demo.api;
+package be.tftic.spring.demo.api.controller;
 
 import be.tftic.spring.demo.api.model.CredentialsForm;
-import be.tftic.spring.demo.bll.TaskService;
-import be.tftic.spring.demo.bll.TaskServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;

@@ -1,13 +1,14 @@
-package be.tftic.spring.demo.bll;
+package be.tftic.spring.demo.bll.impl;
 
 import be.tftic.spring.demo.api.model.Task;
+import be.tftic.spring.demo.bll.TaskService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TaskServiceImpl implements TaskService{
+public class TaskServiceImpl implements TaskService {
 
     private final List<Task> tasks = new ArrayList<>(
             List.of(

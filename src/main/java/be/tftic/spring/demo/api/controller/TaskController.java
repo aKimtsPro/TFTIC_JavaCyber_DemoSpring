@@ -1,4 +1,4 @@
-package be.tftic.spring.demo.api;
+package be.tftic.spring.demo.api.controller;
 
 import be.tftic.spring.demo.bll.TaskService;
 import be.tftic.spring.demo.api.model.Task;

@@ -1,6 +1,15 @@
 spring:
+  # DB Connection
   datasource:
     url: jdbc:postgresql://localhost:5432/forum_db
     username: user
     password: pass
     driver-class-name: org.postgresql.Driver
+  # JPA settings
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
