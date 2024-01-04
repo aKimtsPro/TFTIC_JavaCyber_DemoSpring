@@ -12,14 +12,5 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@Bean
-	public String applicationName(){
-		return "demo spring boot";
-	}
-
-	@Bean
-	public String audience(){
-		return "TFTIC - Java cybersécu";
-	}
 
 }

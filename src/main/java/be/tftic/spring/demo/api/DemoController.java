@@ -14,8 +14,8 @@ public class DemoController {
 
     private final String applicationName;
 
-    public DemoController(String audience) {
-        this.applicationName = audience;
+    public DemoController(String appName) {
+        this.applicationName = appName;
     }
 
     private final List<String> names = List.of(
@@ -47,6 +47,12 @@ public class DemoController {
     public String getName(@PathVariable("index") int i){
         return names.get(i);
     }
+
+    @GetMapping("/header")
+    private String getHeaderValue(@RequestHeader("monHeader") String myHeader){
+        return myHeader;
+    }
+
 
     @GetMapping("/app")
     public String getAppName(){

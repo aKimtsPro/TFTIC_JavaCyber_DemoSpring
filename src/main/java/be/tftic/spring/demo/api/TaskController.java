@@ -3,10 +3,11 @@ package be.tftic.spring.demo.api;
 import be.tftic.spring.demo.bll.TaskService;
 import be.tftic.spring.demo.bll.TaskServiceImpl;
 import be.tftic.spring.demo.domain.Task;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/task")
