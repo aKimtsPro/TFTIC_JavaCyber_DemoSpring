@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter @Setter
 public class Post {
@@ -20,5 +22,15 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "post_created_by", nullable = false, updatable = false)
     private User createdBy;
+
+    @ManyToOne
+    @JoinColumn(name = "post_topic_id", nullable = false, updatable = false)
+    private Topic topic;
+
+    @Column(name = "post_created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "post_lst_update_at", insertable = false)
+    private LocalDateTime lastUpdateAt;
 
 }

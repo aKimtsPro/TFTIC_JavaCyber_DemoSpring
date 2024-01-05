@@ -56,6 +56,7 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Admin admin;
 
-
+    @OneToMany(mappedBy = "createdBy")
+    private List<Post> posts;
 
 }

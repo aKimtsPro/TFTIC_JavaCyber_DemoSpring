@@ -9,6 +9,7 @@ public class PostCreateForm {
     private String title;
     private String content;
     private long userId;
+    private long topicId;
 
     public Post mapToEntity(){
         Post post = new Post();

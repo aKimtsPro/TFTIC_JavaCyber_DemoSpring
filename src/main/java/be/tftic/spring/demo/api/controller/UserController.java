@@ -65,5 +65,13 @@ public class UserController {
         return ResponseEntity.ok( dto );
     }
 
+    // PATCH - http://localhost:8080/user/1
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> addAlias(@PathVariable long userId, @RequestParam String newAlias){
+        userService.addAlias(userId, newAlias);
+        return ResponseEntity.ok()
+                .build();
+    }
+
 
 }

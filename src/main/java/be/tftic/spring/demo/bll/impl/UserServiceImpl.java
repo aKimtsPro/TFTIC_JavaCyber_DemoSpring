@@ -2,10 +2,12 @@ package be.tftic.spring.demo.bll.impl;
 
 import be.tftic.spring.demo.bll.UserService;
 import be.tftic.spring.demo.dal.UserRepository;
+import be.tftic.spring.demo.domain.entity.Post;
 import be.tftic.spring.demo.domain.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -42,5 +44,40 @@ public class UserServiceImpl implements UserService {
         User user = getOne(id);
         userRepository.delete(user);
         return user;
+    }
+
+
+    // user1 {'pol', 'polo'}
+    // user2 {'luc', 'luke'}
+
+    // pol, polo, luc, luke
+
+    @Override
+    public void addAlias(long userId, String alias) {
+        User toUpdate = this.getOne(userId);
+        boolean aliasAlreadyUsed =  userRepository.findAll().stream()
+                .flatMap( user -> user.getAlias().stream() )
+                .anyMatch( existingAlias -> Objects.equals( existingAlias, alias ));
+
+        if(  aliasAlreadyUsed )
+            throw new RuntimeException("alias already used");
+
+        toUpdate.getAlias().add(alias);
+        userRepository.save( toUpdate );
+    }
+
+    @Override
+    public List<Post> getLastThreePostsFromUser(String username) {
+        User user = userRepository.findAll().stream()
+                .filter( u -> Objects.equals( u.getUsername(), username ))
+                .findFirst()
+                .orElseThrow( () -> new RuntimeException("No user found with username: "+ username) );
+
+        List<Post> threeLastPosts = user.getPosts().stream()
+                .sorted( (post1, post2) -> post2.getCreatedAt().compareTo( post1.getCreatedAt() ) )
+                .limit(3)
+                .toList();
+
+        return threeLastPosts;
     }
 }

@@ -37,4 +37,6 @@ public class Topic {
     @ManyToMany(mappedBy = "followedTopics")
     private List<User> followers;
 
+    @OneToMany(mappedBy = "topic")
+    private List<Post> posts;
 }

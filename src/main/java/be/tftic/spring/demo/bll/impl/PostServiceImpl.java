@@ -5,6 +5,7 @@ import be.tftic.spring.demo.dal.PostRepository;
 import be.tftic.spring.demo.domain.entity.Post;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -30,11 +31,13 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post create(Post post) {
         post.setId(null);
+        post.setCreatedAt( LocalDateTime.now() );
         return postRepository.save(post);
     }
 
     @Override
     public Post update(Post post) {
+        post.setLastUpdateAt( LocalDateTime.now() );
         return postRepository.save(post);
     }
 

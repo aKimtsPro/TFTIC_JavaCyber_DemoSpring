@@ -4,8 +4,10 @@ import be.tftic.spring.demo.api.model.dto.PostDTO;
 import be.tftic.spring.demo.api.model.form.PostCreateForm;
 import be.tftic.spring.demo.api.model.form.PostUpdateForm;
 import be.tftic.spring.demo.bll.PostService;
+import be.tftic.spring.demo.bll.TopicService;
 import be.tftic.spring.demo.bll.UserService;
 import be.tftic.spring.demo.domain.entity.Post;
+import be.tftic.spring.demo.domain.entity.Topic;
 import be.tftic.spring.demo.domain.entity.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +21,16 @@ public class PostController {
 
     private final PostService postService;
     private final UserService userService;
+    private final TopicService topicService;
 
     public PostController(
             PostService postService,
-            UserService userService
+            UserService userService,
+            TopicService topicService
     ) {
         this.postService = postService;
         this.userService = userService;
+        this.topicService = topicService;
     }
 
     // GET - http://localhost:8080/post
@@ -51,7 +56,9 @@ public class PostController {
     public ResponseEntity<PostDTO> create(@RequestBody PostCreateForm form){
         Post toCreate = form.mapToEntity();
         User creator = userService.getOne( form.getUserId() );
+        Topic topic = topicService.getOne( form.getTopicId() );
         toCreate.setCreatedBy( creator );
+        toCreate.setTopic( topic );
 
         Post created = postService.create( toCreate );
         PostDTO dto = PostDTO.mapToDto( created );
@@ -78,4 +85,14 @@ public class PostController {
         return ResponseEntity.ok(dto);
     }
 
+    // GET - http://localhost:8080/post?username=*
+    @GetMapping
+    public ResponseEntity<List<PostDTO>> lastThreeFrom(@RequestParam String username){
+        List<Post> posts = userService.getLastThreePostsFromUser(username);
+        List<PostDTO> dtos = posts.stream()
+                .map( PostDTO::mapToDto )
+                .toList();
+
+        return ResponseEntity.ok( dtos );
+    }
 }
