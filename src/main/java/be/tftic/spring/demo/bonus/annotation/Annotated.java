@@ -1,4 +1,4 @@
-package be.tftic.spring.demo.bonus;
+package be.tftic.spring.demo.bonus.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

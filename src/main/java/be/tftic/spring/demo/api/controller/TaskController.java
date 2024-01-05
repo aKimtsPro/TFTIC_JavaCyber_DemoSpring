@@ -1,7 +1,7 @@
 package be.tftic.spring.demo.api.controller;
 
 import be.tftic.spring.demo.bll.TaskService;
-import be.tftic.spring.demo.api.model.Task;
+import be.tftic.spring.demo.domain.Task;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

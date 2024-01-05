@@ -33,8 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(long id, User user) {
-        user.setId(id);
+    public User update(User user) {
         return userRepository.save(user);
     }
 

@@ -1,7 +1,7 @@
 package be.tftic.spring.demo.bll.impl;
 
-import be.tftic.spring.demo.api.model.Task;
 import be.tftic.spring.demo.bll.TaskService;
+import be.tftic.spring.demo.domain.Task;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

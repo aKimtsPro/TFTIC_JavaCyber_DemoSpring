@@ -1,4 +1,4 @@
-package be.tftic.spring.demo.api.model;
+package be.tftic.spring.demo.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

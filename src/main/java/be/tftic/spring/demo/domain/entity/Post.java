@@ -17,4 +17,8 @@ public class Post {
     @Column(name = "post_content", nullable = false)
     private String content;
 
+    @ManyToOne
+    @JoinColumn(name = "post_created_by", nullable = false, updatable = false)
+    private User createdBy;
+
 }
