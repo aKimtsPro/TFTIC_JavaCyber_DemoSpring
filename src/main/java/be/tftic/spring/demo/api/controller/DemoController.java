@@ -1,7 +1,9 @@
 package be.tftic.spring.demo.api.controller;
 
 import be.tftic.spring.demo.api.model.CredentialsForm;
+import be.tftic.spring.demo.api.model.form.ConstraintForm;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
@@ -73,6 +75,11 @@ public class DemoController {
     @GetMapping("/app")
     public String getAppName(){
         return applicationName;
+    }
+
+    @PostMapping("/constraint")
+    public void testConstraints(@RequestBody @Valid ConstraintForm form){
+        System.out.println(form);
     }
 
 }

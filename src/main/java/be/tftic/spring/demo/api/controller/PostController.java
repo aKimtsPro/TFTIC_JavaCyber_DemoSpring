@@ -9,6 +9,7 @@ import be.tftic.spring.demo.bll.UserService;
 import be.tftic.spring.demo.domain.entity.Post;
 import be.tftic.spring.demo.domain.entity.Topic;
 import be.tftic.spring.demo.domain.entity.User;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +54,7 @@ public class PostController {
 
     // POST - http://localhost:8080/post
     @PostMapping
-    public ResponseEntity<PostDTO> create(@RequestBody PostCreateForm form){
+    public ResponseEntity<PostDTO> create(@RequestBody @Valid PostCreateForm form){
         Post toCreate = form.mapToEntity();
         User creator = userService.getOne( form.getUserId() );
         Topic topic = topicService.getOne( form.getTopicId() );
@@ -85,8 +86,8 @@ public class PostController {
         return ResponseEntity.ok(dto);
     }
 
-    // GET - http://localhost:8080/post?username=*
-    @GetMapping
+    // GET - http://localhost:8080/post/last?username=*
+    @GetMapping(params = "username")
     public ResponseEntity<List<PostDTO>> lastThreeFrom(@RequestParam String username){
         List<Post> posts = userService.getLastThreePostsFromUser(username);
         List<PostDTO> dtos = posts.stream()
