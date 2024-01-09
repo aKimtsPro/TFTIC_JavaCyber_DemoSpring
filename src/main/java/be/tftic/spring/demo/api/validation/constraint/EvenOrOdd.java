@@ -16,7 +16,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface EvenOrOdd {
 
     String message() default "should be even";
-    Class<?>[] groups() default  {};
+
+    Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 
     boolean shouldBeEven();
