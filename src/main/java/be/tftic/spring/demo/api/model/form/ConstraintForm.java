@@ -1,5 +1,6 @@
 package be.tftic.spring.demo.api.model.form;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -33,6 +34,7 @@ public class ConstraintForm {
     @PastOrPresent
 //    @Future
 //    @FutureOrPresent
+    @JsonFormat(pattern = "dd/MM/yyyy") // change le format acceptable de la date
     private LocalDate time;
 
 

@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -80,6 +81,13 @@ public class DemoController {
     @PostMapping("/constraint")
     public void testConstraints(@RequestBody @Valid ConstraintForm form){
         System.out.println(form);
+    }
+
+    @GetMapping("/date")
+    public void testDate(
+            @RequestParam /*@DateTimeFormat(pattern = "dd/MM/yyyy")*/ LocalDate date
+    ){
+        System.out.println(date);
     }
 
 }

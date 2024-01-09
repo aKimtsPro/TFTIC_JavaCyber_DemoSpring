@@ -13,3 +13,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+
+# permet de changer le format par défaut des dates
+#  mvc:
+#    format:
+#      date: dd/MM/yyyy
+#      date-time: dd/MM/yyyyZHH:mm:ss
+#      time: HH:mm:ss
