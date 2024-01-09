@@ -69,7 +69,7 @@ public class PostController {
 
     // PUT - http://localhost:8080/post/{id}
     @PutMapping("/{id}")
-    public ResponseEntity<PostDTO> update(@PathVariable long id, @RequestBody PostUpdateForm form){
+    public ResponseEntity<PostDTO> update(@PathVariable long id, @RequestBody @Valid PostUpdateForm form){
         Post toUpdate = postService.getOne(id);
         toUpdate.setTitle(form.getTitle());
         toUpdate.setContent(form.getContent());

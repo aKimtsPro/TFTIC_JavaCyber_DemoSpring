@@ -2,6 +2,7 @@ package be.tftic.spring.demo.api.controller;
 
 import be.tftic.spring.demo.api.model.CredentialsForm;
 import be.tftic.spring.demo.api.model.form.ConstraintForm;
+import be.tftic.spring.demo.api.model.form.CustomConstraintForm;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
@@ -88,6 +89,11 @@ public class DemoController {
             @RequestParam /*@DateTimeFormat(pattern = "dd/MM/yyyy")*/ LocalDate date
     ){
         System.out.println(date);
+    }
+
+    @PostMapping("/constraint/custom")
+    public void testCustomConstraint(@RequestBody @Valid CustomConstraintForm form){
+        System.out.println(form);
     }
 
 }

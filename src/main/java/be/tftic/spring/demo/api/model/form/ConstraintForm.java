@@ -7,6 +7,9 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.util.List;
 
+
+// Check all available constraint here:
+// https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/package-summary
 @Data
 public class ConstraintForm {
 

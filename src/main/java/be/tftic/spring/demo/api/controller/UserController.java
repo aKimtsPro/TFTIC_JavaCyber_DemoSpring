@@ -5,6 +5,7 @@ import be.tftic.spring.demo.api.model.form.UserCreateForm;
 import be.tftic.spring.demo.api.model.form.UserUpdateForm;
 import be.tftic.spring.demo.bll.UserService;
 import be.tftic.spring.demo.domain.entity.User;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> create(@RequestBody UserCreateForm form){
+    public ResponseEntity<UserDTO> create(@RequestBody @Valid UserCreateForm form){
         User user = userService.create( form.mapToEntity() );
         UserDTO dto = UserDTO.mapToDto(user);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -47,7 +48,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable long id, @RequestBody UserUpdateForm form ){
+    public ResponseEntity<UserDTO> update(@PathVariable long id, @RequestBody @Valid UserUpdateForm form ){
         User toUpdate = userService.getOne(id);
         toUpdate.setPassword( form.getPassword() );
         toUpdate.setAlias( form.getAlias() );
