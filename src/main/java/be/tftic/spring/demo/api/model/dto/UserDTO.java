@@ -13,7 +13,7 @@ public record UserDTO(
         List<String> alias
 ) {
 
-    public static UserDTO mapToDto(User user){
+    public static UserDTO fromEntity(User user){
         if( user == null )
             return null;
 

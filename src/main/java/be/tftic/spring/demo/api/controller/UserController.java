@@ -26,7 +26,7 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getAll(){
         List<User> users = userService.getAll();
         List<UserDTO> dtos = users.stream()
-                .map( UserDTO::mapToDto)
+                .map( UserDTO::fromEntity)
                 .toList();
         return ResponseEntity.ok( dtos );
     }
@@ -35,14 +35,14 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getOne(@PathVariable long id){
         User user = userService.getOne(id);
-        UserDTO dto = UserDTO.mapToDto(user);
+        UserDTO dto = UserDTO.fromEntity(user);
         return ResponseEntity.ok( dto );
     }
 
     @PostMapping
     public ResponseEntity<UserDTO> create(@RequestBody @Valid UserCreateForm form){
         User user = userService.create( form.mapToEntity() );
-        UserDTO dto = UserDTO.mapToDto(user);
+        UserDTO dto = UserDTO.fromEntity(user);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(dto);
     }
@@ -54,7 +54,7 @@ public class UserController {
         toUpdate.setAlias( form.getAlias() );
         User user = userService.update(toUpdate);
         return ResponseEntity.ok(
-                UserDTO.mapToDto(user)
+                UserDTO.fromEntity(user)
         );
     }
 
@@ -62,7 +62,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<UserDTO> delete(@PathVariable long id){
         User user = userService.delete( id );
-        UserDTO dto = UserDTO.mapToDto( user );
+        UserDTO dto = UserDTO.fromEntity( user );
         return ResponseEntity.ok( dto );
     }
 

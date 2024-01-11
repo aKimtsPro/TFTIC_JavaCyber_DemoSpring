@@ -3,6 +3,7 @@ package be.tftic.spring.demo.api.validation.constraint;
 import be.tftic.spring.demo.api.validation.validator.PasswordValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -19,6 +20,11 @@ public @interface Password {
     Class<? extends Payload>[] payload() default {};
 
 
-    int minSize() default 6;
+    @AliasFor("value")
+    int minLength() default 6;
+    @AliasFor("minLength")
+    int value() default 6;
+
+
 
 }

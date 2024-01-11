@@ -18,7 +18,7 @@ public record PostDTO(
                 entity.getId(),
                 entity.getContent(),
                 entity.getTitle(),
-                UserDTO.mapToDto( entity.getCreatedBy() )
+                UserDTO.fromEntity( entity.getCreatedBy() )
         );
     }
 

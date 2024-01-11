@@ -14,7 +14,7 @@ public class UserCreateForm {
     @Pattern(regexp = "[a-zA-Z0-9]{1,20}")
     private String username;
 
-    @Password
+    @Password()
     private String password;
 
     public User mapToEntity(){

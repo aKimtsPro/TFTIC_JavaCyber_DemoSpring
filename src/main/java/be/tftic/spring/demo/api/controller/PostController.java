@@ -1,8 +1,10 @@
 package be.tftic.spring.demo.api.controller;
 
+import be.tftic.spring.demo.api.model.dto.CommentDTO;
 import be.tftic.spring.demo.api.model.dto.PostDTO;
 import be.tftic.spring.demo.api.model.form.PostCreateForm;
 import be.tftic.spring.demo.api.model.form.PostUpdateForm;
+import be.tftic.spring.demo.bll.CommentService;
 import be.tftic.spring.demo.bll.PostService;
 import be.tftic.spring.demo.bll.TopicService;
 import be.tftic.spring.demo.bll.UserService;
@@ -23,15 +25,17 @@ public class PostController {
     private final PostService postService;
     private final UserService userService;
     private final TopicService topicService;
+    private final CommentService commentService;
 
     public PostController(
             PostService postService,
             UserService userService,
-            TopicService topicService
+            TopicService topicService, CommentService commentService
     ) {
         this.postService = postService;
         this.userService = userService;
         this.topicService = topicService;
+        this.commentService = commentService;
     }
 
     // GET - http://localhost:8080/post
@@ -95,6 +99,15 @@ public class PostController {
                 .toList();
 
         return ResponseEntity.ok( dtos );
+    }
+
+    @GetMapping("/{id}/comments")
+    public ResponseEntity<List<CommentDTO>> getComments(@PathVariable long id){
+        return ResponseEntity.ok(
+                commentService.getForPost(id).stream()
+                        .map( CommentDTO::fromEntity )
+                        .toList()
+        );
     }
 
 }
