@@ -15,5 +15,9 @@ public interface PostService {
 
     Post delete(long id);
 
+    List<Post> getByCreator(String username);
+
+    List<Post> getByCreatorForLastMonth(String username);
+
 
 }

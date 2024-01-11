@@ -48,4 +48,15 @@ public class PostServiceImpl implements PostService {
         postRepository.delete(toDelete);
         return toDelete;
     }
+
+    @Override
+    public List<Post> getByCreator(String username) {
+        return postRepository.findByCreatorName(username);
+    }
+
+    @Override
+    public List<Post> getByCreatorForLastMonth(String username) {
+        LocalDateTime afterDate = LocalDateTime.now().minusMonths(1);
+        return postRepository.findByUserAfterDate(username, afterDate);
+    }
 }

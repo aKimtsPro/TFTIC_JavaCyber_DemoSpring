@@ -15,9 +15,14 @@ public interface UserService {
     User update(User user);
 
     User delete(long id);
+    void delete(String username);
 
     void addAlias(long userId, String alias);
 
     List<Post> getLastThreePostsFromUser(String username);
 
+
+    User getByUsername(String username);
+
+    boolean isUserAdmin(String username);
 }

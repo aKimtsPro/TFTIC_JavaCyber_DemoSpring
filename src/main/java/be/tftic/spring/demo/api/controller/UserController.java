@@ -74,4 +74,24 @@ public class UserController {
                 .build();
     }
 
+    @GetMapping(params = "username")
+    public ResponseEntity<UserDTO> getByUsername(@RequestParam String username){
+        return ResponseEntity.ok(
+                UserDTO.fromEntity( userService.getByUsername(username) )
+        );
+    }
+
+    @GetMapping("/isAdmin")
+    public ResponseEntity<Boolean> isUserAdmin(@RequestParam String username){
+        return ResponseEntity.ok(
+                userService.isUserAdmin(username)
+        );
+    }
+
+    @DeleteMapping(params = "username")
+    public ResponseEntity<Void> deleteByUsername(@RequestParam String username){
+        userService.delete(username);
+        return ResponseEntity.ok().build();
+    }
+
 }

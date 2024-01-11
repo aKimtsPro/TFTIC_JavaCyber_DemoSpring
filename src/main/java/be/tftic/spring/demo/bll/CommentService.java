@@ -9,4 +9,6 @@ public interface CommentService {
 
     List<Comment> getForPost(Long id);
 
+    long countCommentForPost(Long postId);
+
 }

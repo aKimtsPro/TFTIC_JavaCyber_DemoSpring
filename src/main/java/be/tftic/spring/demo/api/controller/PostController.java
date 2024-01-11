@@ -43,7 +43,7 @@ public class PostController {
     public ResponseEntity<List<PostDTO>> getAll(){
         List<Post> posts = postService.getAll();
         List<PostDTO> dtos = posts.stream()
-                .map( PostDTO::mapToDto )
+                .map( PostDTO::fromEntity)
                 .toList();
         return ResponseEntity.ok( dtos );
     }
@@ -52,7 +52,7 @@ public class PostController {
     @GetMapping("/{id}")
     public ResponseEntity<PostDTO> getOne(@PathVariable long id){
         Post post = postService.getOne( id );
-        PostDTO dto = PostDTO.mapToDto( post );
+        PostDTO dto = PostDTO.fromEntity( post );
         return ResponseEntity.ok( dto );
     }
 
@@ -66,7 +66,7 @@ public class PostController {
         toCreate.setTopic( topic );
 
         Post created = postService.create( toCreate );
-        PostDTO dto = PostDTO.mapToDto( created );
+        PostDTO dto = PostDTO.fromEntity( created );
         return ResponseEntity.status( HttpStatus.CREATED )
                 .body( dto );
     }
@@ -78,7 +78,7 @@ public class PostController {
         toUpdate.setTitle(form.getTitle());
         toUpdate.setContent(form.getContent());
         Post updated = postService.update(toUpdate);
-        PostDTO dto = PostDTO.mapToDto( updated );
+        PostDTO dto = PostDTO.fromEntity( updated );
         return ResponseEntity.ok( dto );
     }
 
@@ -86,16 +86,16 @@ public class PostController {
     @DeleteMapping("/{id}")
     public ResponseEntity<PostDTO> delete(@PathVariable long id){
         Post deleted = postService.delete(id);
-        PostDTO dto = PostDTO.mapToDto(deleted);
+        PostDTO dto = PostDTO.fromEntity(deleted);
         return ResponseEntity.ok(dto);
     }
 
     // GET - http://localhost:8080/post/last?username=*
-    @GetMapping(params = "username")
+    @GetMapping(path = "/lastThree",params = "username")
     public ResponseEntity<List<PostDTO>> lastThreeFrom(@RequestParam String username){
         List<Post> posts = userService.getLastThreePostsFromUser(username);
         List<PostDTO> dtos = posts.stream()
-                .map( PostDTO::mapToDto )
+                .map( PostDTO::fromEntity)
                 .toList();
 
         return ResponseEntity.ok( dtos );
@@ -106,6 +106,31 @@ public class PostController {
         return ResponseEntity.ok(
                 commentService.getForPost(id).stream()
                         .map( CommentDTO::fromEntity )
+                        .toList()
+        );
+    }
+
+    @GetMapping(params = "username")
+    public ResponseEntity<List<PostDTO>> getPostByCreator(@RequestParam(required = false) String username){
+        return ResponseEntity.ok(
+                postService.getByCreator(username).stream()
+                        .map(PostDTO::fromEntity)
+                        .toList()
+        );
+    }
+
+    @GetMapping("/{id}/comment/count")
+    public ResponseEntity<Long> getCommentCount(@PathVariable long id){
+        return ResponseEntity.ok(
+                commentService.countCommentForPost(id)
+        );
+    }
+
+    @GetMapping(path = "/lastMonth", params = "username")
+    public ResponseEntity<List<PostDTO>> getByCreatorForLastMonth(@RequestParam String username){
+        return ResponseEntity.ok(
+                postService.getByCreatorForLastMonth(username).stream()
+                        .map(PostDTO::fromEntity)
                         .toList()
         );
     }

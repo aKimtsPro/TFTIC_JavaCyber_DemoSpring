@@ -20,4 +20,9 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getForPost(Long id) {
         return commentRepository.findByPostIdCustom(id);
     }
+
+    @Override
+    public long countCommentForPost(Long postId) {
+        return commentRepository.countByPostId(postId);
+    }
 }

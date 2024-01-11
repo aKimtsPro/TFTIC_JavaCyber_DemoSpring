@@ -10,7 +10,7 @@ public record PostDTO(
         UserDTO user
 ) {
 
-    public static PostDTO mapToDto(Post entity){
+    public static PostDTO fromEntity(Post entity){
         if( entity == null )
             return null;
 

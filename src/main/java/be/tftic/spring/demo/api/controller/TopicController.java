@@ -1,14 +1,13 @@
 package be.tftic.spring.demo.api.controller;
 
 import be.tftic.spring.demo.api.model.dto.PostDTO;
+import be.tftic.spring.demo.api.model.dto.TopicDTO;
 import be.tftic.spring.demo.bll.TopicService;
 import be.tftic.spring.demo.domain.entity.Post;
 import be.tftic.spring.demo.domain.entity.Topic;
+import be.tftic.spring.demo.domain.entity.TopicCategory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,10 +27,19 @@ public class TopicController {
         Topic topic = topicService.getOne(id);
         List<Post> posts = topic.getPosts();
         List<PostDTO> dtos = posts.stream()
-                .map( PostDTO::mapToDto )
+                .map( PostDTO::fromEntity)
                 .toList();
 
         return ResponseEntity.ok( dtos );
+    }
+
+    @GetMapping(params = "category")
+    public ResponseEntity<List<TopicDTO>> getByCategory(@RequestParam TopicCategory category){
+        return ResponseEntity.ok(
+                topicService.getByCategory(category).stream()
+                        .map( TopicDTO::fromEntity )
+                        .toList()
+        );
     }
 
 }

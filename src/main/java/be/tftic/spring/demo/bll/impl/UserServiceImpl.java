@@ -2,6 +2,7 @@ package be.tftic.spring.demo.bll.impl;
 
 import be.tftic.spring.demo.bll.UserService;
 import be.tftic.spring.demo.bll.exceptions.EntityNotFoundException;
+import be.tftic.spring.demo.dal.AdminRepository;
 import be.tftic.spring.demo.dal.UserRepository;
 import be.tftic.spring.demo.domain.entity.Post;
 import be.tftic.spring.demo.domain.entity.User;
@@ -14,9 +15,11 @@ import java.util.Objects;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, AdminRepository adminRepository) {
         this.userRepository = userRepository;
+        this.adminRepository = adminRepository;
     }
 
     @Override
@@ -80,5 +83,21 @@ public class UserServiceImpl implements UserService {
                 .toList();
 
         return threeLastPosts;
+    }
+
+    @Override
+    public User getByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("change this")); // TODO check exception ctor
+    }
+
+    @Override
+    public boolean isUserAdmin(String username) {
+        return adminRepository.existsByUser(username);
+    }
+
+    @Override
+    public void delete(String username) {
+        userRepository.deleteByUsername(username);
     }
 }
