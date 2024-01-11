@@ -18,4 +18,7 @@ public @interface Password {
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
+
+    int minSize() default 6;
+
 }

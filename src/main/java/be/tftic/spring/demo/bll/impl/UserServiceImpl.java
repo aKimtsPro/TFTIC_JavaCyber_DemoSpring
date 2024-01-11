@@ -1,6 +1,7 @@
 package be.tftic.spring.demo.bll.impl;
 
 import be.tftic.spring.demo.bll.UserService;
+import be.tftic.spring.demo.bll.exceptions.EntityNotFoundException;
 import be.tftic.spring.demo.dal.UserRepository;
 import be.tftic.spring.demo.domain.entity.Post;
 import be.tftic.spring.demo.domain.entity.User;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getOne(long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No user found with this id"));
+                .orElseThrow(() -> new EntityNotFoundException(id, User.class));
     }
 
     @Override

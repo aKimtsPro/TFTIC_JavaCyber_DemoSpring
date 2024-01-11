@@ -12,7 +12,7 @@ import java.util.List;
 public class UserUpdateForm {
 
 
-    @Password
+    @Password// (minSize = 8)
     private String password;
     @Size(max = 3)
     // le @NotBlank dans les chevron permet la validation des éléments de la liste

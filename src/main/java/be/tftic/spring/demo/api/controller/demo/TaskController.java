@@ -1,7 +1,8 @@
-package be.tftic.spring.demo.api.controller;
+package be.tftic.spring.demo.api.controller.demo;
 
 import be.tftic.spring.demo.bll.TaskService;
 import be.tftic.spring.demo.domain.Task;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/task")
+@Slf4j
 public class TaskController {
 
     private final TaskService service;

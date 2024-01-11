@@ -19,5 +19,5 @@ spring:
 #  mvc:
 #    format:
 #      date: dd/MM/yyyy
-#      date-time: dd/MM/yyyyZHH:mm:ss
+#      date-time: dd/MM/yyyy HH:mm:ss
 #      time: HH:mm:ss

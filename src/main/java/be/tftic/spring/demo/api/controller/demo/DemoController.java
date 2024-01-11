@@ -1,4 +1,4 @@
-package be.tftic.spring.demo.api.controller;
+package be.tftic.spring.demo.api.controller.demo;
 
 import be.tftic.spring.demo.api.model.CredentialsForm;
 import be.tftic.spring.demo.api.model.form.ConstraintForm;
@@ -6,6 +6,7 @@ import be.tftic.spring.demo.api.model.form.CustomConstraintForm;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -96,4 +97,14 @@ public class DemoController {
         System.out.println(form);
     }
 
+    @GetMapping("/throw")
+    public void throwEx(){
+        throw new RuntimeException();
+    }
+
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handle(RuntimeException ex){
+        return ResponseEntity.status(419).body(ex.getMessage());
+    }
 }

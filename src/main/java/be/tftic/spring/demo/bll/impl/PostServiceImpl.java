@@ -1,6 +1,7 @@
 package be.tftic.spring.demo.bll.impl;
 
 import be.tftic.spring.demo.bll.PostService;
+import be.tftic.spring.demo.bll.exceptions.EntityNotFoundException;
 import be.tftic.spring.demo.dal.PostRepository;
 import be.tftic.spring.demo.domain.entity.Post;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post getOne(long id) {
         return postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No post found with id " + id));
+                .orElseThrow(() -> new EntityNotFoundException(id, Post.class));
     }
 
     @Override
