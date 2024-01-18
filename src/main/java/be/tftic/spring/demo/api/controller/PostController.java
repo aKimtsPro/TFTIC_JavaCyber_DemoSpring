@@ -1,6 +1,7 @@
 package be.tftic.spring.demo.api.controller;
 
 import be.tftic.spring.demo.api.model.dto.CommentDTO;
+import be.tftic.spring.demo.api.model.dto.PageDTO;
 import be.tftic.spring.demo.api.model.dto.PostDTO;
 import be.tftic.spring.demo.api.model.form.PostCreateForm;
 import be.tftic.spring.demo.api.model.form.PostUpdateForm;
@@ -11,12 +12,15 @@ import be.tftic.spring.demo.bll.UserService;
 import be.tftic.spring.demo.domain.entity.Post;
 import be.tftic.spring.demo.domain.entity.Topic;
 import be.tftic.spring.demo.domain.entity.User;
+import be.tftic.spring.demo.utils.search.SimpleSearchCriteria;
+import be.tftic.spring.demo.utils.specifications.PredicateJoiner;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/post")
@@ -132,6 +136,47 @@ public class PostController {
                 postService.getByCreatorForLastMonth(username).stream()
                         .map(PostDTO::fromEntity)
                         .toList()
+        );
+    }
+
+    @GetMapping("/filtered")
+    public ResponseEntity<PageDTO<PostDTO>> getFiltered(
+            @RequestParam Map<String, Object> params,
+            @RequestParam(defaultValue = "0", required = false) int page,
+            @RequestParam(defaultValue = "10", required = false) int pageSize
+    ){
+        params.remove("page");
+        params.remove("pageSize");
+
+        return ResponseEntity.ok(
+                PageDTO.fromPage(
+                        postService.getFiltered(params, page, pageSize),
+                        PostDTO::fromEntity
+                )
+        );
+    }
+
+    @GetMapping("/criteria")
+    public ResponseEntity<PageDTO<PostDTO>> criterias(
+            @RequestParam Map<String, String> params,
+            @RequestParam(required = false, defaultValue = "AND") PredicateJoiner joiner,
+            @RequestParam(defaultValue = "0", required = false) int page,
+            @RequestParam(defaultValue = "10", required = false) int pageSize
+    ){
+        params.remove("joiner");
+        params.remove("page");
+        params.remove("pageSize");
+
+        return ResponseEntity.ok(
+                PageDTO.fromPage(
+                        postService.getFromCriterias(
+                                SimpleSearchCriteria.fromParams(params, Post.class),
+                                joiner,
+                                pageSize,
+                                page
+                        ),
+                        PostDTO::fromEntity
+                )
         );
     }
 

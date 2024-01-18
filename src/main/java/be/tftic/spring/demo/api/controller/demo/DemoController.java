@@ -102,7 +102,6 @@ public class DemoController {
         throw new RuntimeException();
     }
 
-
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handle(RuntimeException ex){
         return ResponseEntity.status(419).body(ex.getMessage());

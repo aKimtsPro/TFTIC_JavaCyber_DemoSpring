@@ -13,11 +13,18 @@ public class CustomCommentRepositoryImpl implements CustomCommentRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-
     @Override
     public List<Comment> findByPostIdCustom(Long id) {
-        TypedQuery<Comment> query = entityManager.createQuery("SELECT c FROM Comment c WHERE c.aboutPost.id = :postId", Comment.class);
+        TypedQuery<Comment> query = entityManager.createQuery(""" 
+               SELECT c
+               FROM Comment c
+               WHERE c.aboutPost.id = :postId
+            """,
+            Comment.class
+        );
+
         query.setParameter("postId", id);
+
         return query.getResultList();
     }
 }

@@ -10,11 +10,11 @@ public class RefreshLambda {
                 System.out.println(s);
             }
         };
-
         consumer.accept("salut");
 
         consumer = (param) -> System.out.println(param);
         consumer.accept("salut2");
+
         consumer = System.out::println;
         consumer.accept("salut3");
     }
