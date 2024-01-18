@@ -2,6 +2,7 @@ package be.tftic.spring.demo.api.model.dto;
 
 import be.tftic.spring.demo.domain.entity.Topic;
 import be.tftic.spring.demo.domain.entity.TopicCategory;
+import be.tftic.spring.demo.domain.entity.User;
 
 public record TopicDTO(
         Long id,
@@ -23,6 +24,21 @@ public record TopicDTO(
                 UserDTO.fromEntity( entity.getCreatedBy() )
         );
 
+    }
+
+    public record UserDTO(
+            long id,
+            String username
+    ){
+        public static UserDTO fromEntity(User user){
+            if( user == null )
+                return null;
+
+            return new UserDTO(
+                    user.getId(),
+                    user.getUsername()
+            );
+        }
     }
 
 }

@@ -18,9 +18,19 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
+    public List<Topic> getAll() {
+        return topicRepository.findAll();
+    }
+
+    @Override
     public Topic getOne(long id) {
         return topicRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No topic found with id: "+ id));
+    }
+
+    @Override
+    public Topic create(Topic topic) {
+        return topicRepository.save(topic);
     }
 
     @Override

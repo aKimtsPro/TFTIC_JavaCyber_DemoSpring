@@ -1,4 +1,4 @@
-package be.tftic.spring.demo.config;
+package be.tftic.spring.demo.bonus.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

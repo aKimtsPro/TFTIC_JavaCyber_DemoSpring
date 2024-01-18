@@ -14,7 +14,7 @@ public class SpecJoiner<T> {
     private SpecJoiner<T> parent;
     private final Set<SpecJoiner<T>> children = new HashSet<>();
     private boolean generalNot;
-    private boolean notOneTimer = false;
+    private boolean oneTimeNot = false;
 
 
     SpecJoiner(
@@ -39,7 +39,7 @@ public class SpecJoiner<T> {
     }
 
     public SpecJoiner<T> not(){
-        this.notOneTimer = !this.notOneTimer;
+        this.oneTimeNot = !this.oneTimeNot;
         return this;
     }
 
@@ -62,8 +62,8 @@ public class SpecJoiner<T> {
     }
 
     private SpecJoiner<T> addJoint(PredicateJoiner joiner){
-        if( notOneTimer ){
-            notOneTimer = false;
+        if(oneTimeNot){
+            oneTimeNot = false;
             return new SpecJoiner<>(this, PredicateJoiner.AND, true);
         }
         else {
@@ -72,8 +72,8 @@ public class SpecJoiner<T> {
     }
 
     private SpecJoiner<T> addJoint(SpecJoiner<T> joiner) {
-        if( notOneTimer ){
-            notOneTimer = false;
+        if(oneTimeNot){
+            oneTimeNot = false;
             joiner.generalNot = true;
         }
         joiner.parent = this;
@@ -147,8 +147,8 @@ public class SpecJoiner<T> {
     }
 
     private Specification<T> applyNot(Specification<T> spec) {
-        if( notOneTimer ) {
-            notOneTimer = false;
+        if(oneTimeNot) {
+            oneTimeNot = false;
             spec = Specification.not(spec);
         }
         return spec;

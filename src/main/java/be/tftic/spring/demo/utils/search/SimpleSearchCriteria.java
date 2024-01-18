@@ -7,7 +7,6 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDateTime;
-import java.time.temporal.Temporal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +27,8 @@ public class SimpleSearchCriteria<T> implements SearchCriteria<T> {
     @Override
     public Specification<T> toSpecification() {
         return switch (this.operation){
-            case EQUAL ->           (r,q,cb) -> cb.equal( getPath(r, field), value );
-            case NOT_EQUAL ->       (r,q,cb) -> cb.notEqual( getPath(r, field), value );
+            case EQUAL ->           (r,q,cb) -> cb.equal( getPath(r,field), value );
+            case NOT_EQUAL ->       (r,q,cb) -> cb.notEqual( getPath(r,field), value );
             case GREATER_EQUAL ->   (r,q,cb) -> cb.ge( getPath(r,field,Number.class), numberFrom(value) );
             case GREATER ->         (r,q,cb) -> cb.gt( getPath(r,field,Number.class), numberFrom(value) );
             case LESSER_EQUAL ->    (r,q,cb) -> cb.le( getPath(r,field,Number.class), numberFrom(value) );
@@ -63,7 +62,6 @@ public class SimpleSearchCriteria<T> implements SearchCriteria<T> {
     }
 
     private static String[] handleIn(String value) {
-        Temporal t = LocalDateTime.now();
         return value.split(",");
     }
 

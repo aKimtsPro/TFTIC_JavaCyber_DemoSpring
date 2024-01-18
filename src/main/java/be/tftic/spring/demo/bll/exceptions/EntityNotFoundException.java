@@ -1,5 +1,8 @@
 package be.tftic.spring.demo.bll.exceptions;
 
+import lombok.Getter;
+
+@Getter
 public class EntityNotFoundException extends RuntimeException {
 
     private final Object searchValue;

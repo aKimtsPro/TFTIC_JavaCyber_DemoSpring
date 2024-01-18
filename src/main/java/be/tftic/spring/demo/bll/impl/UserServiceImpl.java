@@ -6,6 +6,8 @@ import be.tftic.spring.demo.dal.AdminRepository;
 import be.tftic.spring.demo.dal.UserRepository;
 import be.tftic.spring.demo.domain.entity.Post;
 import be.tftic.spring.demo.domain.entity.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -99,5 +101,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(String username) {
         userRepository.deleteByUsername(username);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("No user with username {" +username+ "}"));
     }
 }
