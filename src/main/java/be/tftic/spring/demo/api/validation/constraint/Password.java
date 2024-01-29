@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = {PasswordValidator.class})
 public @interface Password {
 
-    String message() default "password must be strong(1 uppercase, 1 lowercase, 1 number, 1 special char)";
+    String message() default "{password.invalid}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 

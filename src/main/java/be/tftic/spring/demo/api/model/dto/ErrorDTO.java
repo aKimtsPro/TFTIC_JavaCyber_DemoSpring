@@ -14,4 +14,8 @@ public class ErrorDTO {
         this.statusCode = status.value();
         this.message = message;
     }
+
+    public ErrorDTO(HttpStatus status, Throwable cause) {
+        this(status, cause.getMessage());
+    }
 }

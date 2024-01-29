@@ -27,9 +27,9 @@ public class ValidationErrorDTO extends ErrorDTO {
                 fieldError -> {
                     String fieldName = fieldError.getField();
 
-                    if( fieldErrorsMap.containsKey( fieldName ) )
+                    if( fieldErrorsMap.containsKey( fieldName ) ) {
                         fieldErrorsMap.get(fieldName).add( fieldError.getDefaultMessage() );
-                    else {
+                    } else {
                         Set<String> errorsSet = new HashSet<>();
                         errorsSet.add( fieldError.getDefaultMessage() );
                         fieldErrorsMap.put( fieldName, errorsSet );

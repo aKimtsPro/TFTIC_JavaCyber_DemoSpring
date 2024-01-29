@@ -11,10 +11,10 @@ public class UserCreateForm {
 
     @NotBlank
 //    @Size(min = 1, max = 20)
-    @Pattern(regexp = "[a-zA-Z0-9]{1,20}")
+    @Pattern(regexp = "[a-zA-Z0-9]{1,20}", message = "{password.invalid}")
     private String username;
 
-    @Password()
+    @Password
     private String password;
 
     public User mapToEntity(){

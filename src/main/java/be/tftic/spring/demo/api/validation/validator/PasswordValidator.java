@@ -19,6 +19,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
             return false;
 
         String regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{"+minSize+",}$";
+
         return value.matches(regexp);
     }
 }
